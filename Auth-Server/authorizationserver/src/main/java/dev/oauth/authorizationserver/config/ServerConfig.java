@@ -87,9 +87,14 @@ public class ServerConfig {
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .redirectUris(url -> {
-                    url.add("http://127.0.0.1:8080");
+                    // 클라이언트의 루트 페이지와 함께, 인가 코드를 받을 콜백 URL을 추가합니다.
+                    url.add("http://localhost:3000");
+                    url.add("http://localhost:3000/login/oauth2/code/my-oauth-app-fisa");
                 })
-//                .redirectUri("http://127.0.0.1:8081/login/oauth2/code/oauth2-client-app")
+//                .redirectUris(url -> {
+//                    url.add("http://localhost:3000/login/authorization");
+//                })
+//                .redirectUri("http://127.0.0.1:3000/login/oauth2/code/my-oauth-app-fisa")
                 .scope(OidcScopes.OPENID)
                 .scope("read")
                 .scope("write")
