@@ -17,14 +17,15 @@ export default function LoginPage() {
       const clientId = "my-oauth-app-fisa";
       const clientSecret = "abcde";
       const redirectUri = encodeURIComponent(
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/login/authorization`
+        `${process.env.NEXT_PUBLIC_CLIENT_URL}`
+        // /login/oauth2/code/my-oauth-app-fisa`
       );
       const scope = "read write"; // 필요한 scope
       const state = Math.random().toString(36).substring(2); // 임의 문자열
 
       localStorage.setItem("oauth_state", state);
 
-      const authUrl = `${authServerUrl}/authorize?response_type=code&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}`;
+      const authUrl = `${authServerUrl}/oauth2/authorize?response_type=code&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}`;
 
       window.location.href = authUrl; // 브라우저를 인가 서버로 이동
     } catch (err: any) {
